@@ -3,27 +3,23 @@
 #include<time.h>
 
 
-
-
 Monomer::Monomer()
 {
-	srand(time(NULL));
-
 	Set_Length_Glycan(GLYCAN_LENGTH);
 	Set_Length_Peptide(PEPTIDE_LENGTH);
 	Set_Spring_Constant_Glycan(GLYCAN_SPRING_CONSTANT);
 	Set_Spring_Constant_Peptide(PEPTIDE_SPRING_CONSTANT);
 
-	Set_Number_Bonds_Glycan(0);
-	Set_Number_Bonds_Peptide(0);
+	Set_Number_Bonds_Glycan(1);
+	Set_Number_Bonds_Peptide(1);
 		
-	if (rand()/(double)RAND_MAX <= PEPTIDE_PROB)
+	if ((double)rand()/(double)RAND_MAX >= PEPTIDE_PROB)
 	{
-		Set_Number_Bonds_Peptide(1);
+		Set_Number_Bonds_Peptide(0);
 	}
-	if (rand()/(double)RAND_MAX <= GLYCAN_PROB)
+	if ((double)rand()/(double)RAND_MAX >= GLYCAN_PROB)
 	{
-		Set_Number_Bonds_Glycan(1);
+		Set_Number_Bonds_Glycan(0);
 	}
 	
 }

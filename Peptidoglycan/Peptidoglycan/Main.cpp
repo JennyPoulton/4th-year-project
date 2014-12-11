@@ -10,6 +10,9 @@ using namespace std;
 
 int main(void)
 {
+
+	srand(time(NULL));
+
 	ofstream Output1("OutputForce.txt");
 
 	if (!Output1.is_open())
@@ -38,8 +41,8 @@ int main(void)
 
 	Polymer StaphAureous;
 
-	double Force = 20;
-
+	double Force = 5;
+	
 	StaphAureous.Set_Forces_And_Lengths(Force);
 	//StaphAureous.Calculate_All_Forces_Leftwards(Force / (double)2);
 	//StaphAureous.Calculate_All_Forces_Rightwards(Force / (double)2);
@@ -63,8 +66,14 @@ int main(void)
 			double p = (StaphAureous.Return_Length_Peptide(i, j) - StaphAureous.Return_Min_Length_P());
 			double q = StaphAureous.Return_Splitter_For_Sorting_P();
 
-			int r = (int)(p /q);
-			Histogram_Peptide[r]++;
+			for (double r = 0; r < 100; r++)
+			{
+				if (p >= r*q&&p<=(r+1)*q)
+				{
+					Histogram_Peptide[(int)r]++;
+				}
+			}
+			
 		}
 	}
 
