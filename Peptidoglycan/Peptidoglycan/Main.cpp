@@ -42,45 +42,69 @@ int main(void)
 	Polymer StaphAureous;
 
 	double Force = 5;
-	
-	StaphAureous.Set_Forces_And_Lengths(Force);
-	//StaphAureous.Calculate_All_Forces_Leftwards(Force / (double)2);
-	//StaphAureous.Calculate_All_Forces_Rightwards(Force / (double)2);
 
-	StaphAureous.Sort_Lengths_Into_Groups_For_Histogram();
+	for (int i = 0; i < 100; i++)
+	{
+		StaphAureous.Set_Forces_And_Lengths(Force);
+		StaphAureous.Calculate_Spring_Constant_Horizontal();
+		StaphAureous.Calculate_Spring_Constant_Vertical();
+
+		Output2 << StaphAureous.Return_Spring_Constant_Horizontal() << "\t" << StaphAureous.Return_Spring_Constant_Verticle() << endl;
+
+		StaphAureous.Sort_Lengths_Into_Groups_For_Histogram();
+
+		StaphAureous.Break_Bond();
+	}
+
+	//double Force = 5;
+	//
+	//StaphAureous.Set_Forces_And_Lengths(Force);
+	//
+	//StaphAureous.Sort_Lengths_Into_Groups_For_Histogram();
 
 	//double Histogram_Glycan[100];
-	double Histogram_Peptide[100];
+	//double Histogram_Peptide[100];
 
-	for (int i = 0; i < 100; i++)
-	{
-		//Histogram_Glycan[i]=0;
-		Histogram_Peptide[i]=0;
-	}
+	//for (int i = 0; i < 100; i++)
+	//{
+	//	Histogram_Glycan[i]=0;
+	//	Histogram_Peptide[i]=0;
+	//}
 
-	for (int i = 0; i < DIMENSION; i++)
-	{
-		for (int j = 0; j < DIMENSION; j++)
-		{
-			//Histogram_Glycan[(int)((StaphAureous.Return_Length_Glycan(i, j)-StaphAureous.Return_Min_Length_G()) / StaphAureous.Return_Splitter_For_Sorting_G())]++;
-			double p = (StaphAureous.Return_Length_Peptide(i, j) - StaphAureous.Return_Min_Length_P());
-			double q = StaphAureous.Return_Splitter_For_Sorting_P();
+	//for (int i = 0; i < DIMENSION; i++)
+	//{
+	//	for (int j = 0; j < DIMENSION; j++)
+	//	{
+	//		//Histogram_Glycan[(int)((StaphAureous.Return_Length_Glycan(i, j)-StaphAureous.Return_Min_Length_G()) / StaphAureous.Return_Splitter_For_Sorting_G())]++;
+	//		double p = (StaphAureous.Return_Length_Peptide(i, j) - StaphAureous.Return_Min_Length_P());
+	//		double q = StaphAureous.Return_Splitter_For_Sorting_P();
 
-			for (double r = 0; r < 100; r++)
-			{
-				if (p >= r*q&&p<=(r+1)*q)
-				{
-					Histogram_Peptide[(int)r]++;
-				}
-			}
-			
-		}
-	}
+	//		double t = (StaphAureous.Return_Length_Glycan(i, j) - StaphAureous.Return_Min_Length_G());
+	//		double s = StaphAureous.Return_Splitter_For_Sorting_G();
 
-	for (int i = 0; i < 100; i++)
-	{
-		Output1 /*<< i*StaphAureous.Return_Splitter_For_Sorting_G() << "\t" << Histogram_Glycan[i] << "\t"*/ << i*StaphAureous.Return_Splitter_For_Sorting_P() << "\t" << Histogram_Peptide[i] << endl;
-	}
+	//		for (double r = 0; r < 100; r++)
+	//		{
+	//			if (p >= r*q&&p<=(r+1)*q)
+	//			{
+	//				Histogram_Peptide[(int)r]++;
+	//			}
+	//		}
+
+	//		for (double r = 0; r < 100; r++)
+	//		{
+	//			if (t >= r*s&&t <= (r + 1)*s)
+	//			{
+	//				Histogram_Glycan[(int)r]++;
+	//			}
+	//		}
+	//		
+	//	}
+	//}
+
+	//for (int i = 0; i < 100; i++)
+	//{
+	//	Output1 << i*StaphAureous.Return_Splitter_For_Sorting_G() << "\t" << Histogram_Glycan[i] << "\t" << i*StaphAureous.Return_Splitter_For_Sorting_P() << "\t" << Histogram_Peptide[i] << endl;
+	//}
 
 	system("pause");
 	return 0;

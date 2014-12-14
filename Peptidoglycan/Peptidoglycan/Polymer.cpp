@@ -11,7 +11,7 @@ Polymer::Polymer()
 	Min_Length_Peptide = 1000000000000000;
 
 	Set_Forces_And_Lengths(10);
-	Delete_Dead_Ends_And_Unjoined();
+	//Delete_Dead_Ends_And_Unjoined();
 
 	Calculate_Spring_Constant_Horizontal();
 	Calculate_Spring_Constant_Vertical();
@@ -27,6 +27,17 @@ void Polymer::Delete_Dead_Ends_And_Unjoined()
 			if (Force_Downwards[i][j] == 0 || Force_Upwards[i][j] == 0)
 			{
 				Murein[i][j].Set_Number_Bonds_Peptide(0);
+			}
+		}
+	}
+
+	for (int i = 0; i < DIMENSION; i++)
+	{
+		for (int j = 0; j < DIMENSION; j++)
+		{
+			if (Force_Leftwards[i][j] == 0 || Force_Rightwards[i][j] == 0)
+			{
+				Murein[i][j].Set_Number_Bonds_Glycan(0);
 			}
 		}
 	}
@@ -88,12 +99,13 @@ void Polymer::Set_Forces_And_Lengths(double input_force)
 		{
 
 			Find_Force_Upwards(input_force, i, j);
+			Find_Force_Leftwards(input_force, i, j);
 
 			Murein[i][j].Set_Vertical_Force(Force_Upwards[i][j]);
 			Murein[i][j].Set_Length_Peptide(Force_Upwards[i][j] / (double)PEPTIDE_SPRING_CONSTANT);
 
-			
-
+			Murein[i][j].Set_Horizontal_Force(Force_Leftwards[i][j]);
+			Murein[i][j].Set_Length_Glycan(Force_Leftwards[i][j] / (double)PEPTIDE_SPRING_CONSTANT);
 		}
 	}
 }
@@ -115,7 +127,7 @@ void Polymer::Find_Force_Upwards(double Input_Force, int p, int q)
 
 		leftward_extent_above[n] = 0;
 
-		while ((Murein[n][m].Return_Number_Bonds_Glycan() == 1 || leftward_extent_above[n]<total_left) && m <= DIMENSION - 1 && m >= 0)
+		while ((Murein[n][m].Return_Number_Bonds_Glycan() == 1 || leftward_extent_above[n] < total_left) && m <= DIMENSION - 1 && m >= 0)
 		{
 			leftward_extent_above[n]++;
 			m--;
@@ -123,11 +135,6 @@ void Polymer::Find_Force_Upwards(double Input_Force, int p, int q)
 
 		total_left = leftward_extent_above[n];
 
-		if (q - leftward_extent_above[n] < -1)
-		{
-			cout << "Error, too far left" << endl;
-			system("pause");
-		}
 
 	}
 
@@ -147,11 +154,7 @@ void Polymer::Find_Force_Upwards(double Input_Force, int p, int q)
 
 		total_right = rightward_extent_above[n];
 
-		if (q + rightward_extent_above[n] > DIMENSION)
-		{
-			cout << "Error, too far right" << endl;
-			system("pause");
-		}
+	
 	}
 
 	if (p == 0)
@@ -198,7 +201,7 @@ void Polymer::Find_Force_Upwards(double Input_Force, int p, int q)
 
 
 		Numerator[p][q] = Numerator[p][q] * (double)tally_peptides;
-		cout << "Num" << Numerator[p][q] << endl;
+
 	}
 
 	Denominator[p][q] = 1;
@@ -235,7 +238,7 @@ void Polymer::Find_Force_Upwards(double Input_Force, int p, int q)
 		}
 
 		Denominator[p][q] = Denominator[p][q] * (double)tally_peptides;
-		cout << "Den" << Denominator[p][q] << endl;
+		
 	}
 
 	int m = q;
@@ -301,7 +304,7 @@ void Polymer::Find_Force_Downwards(double Input_Force, int p, int q)
 
 		leftward_extent_below[n] = 0;
 
-		while ((Murein[n][m].Return_Number_Bonds_Glycan() == 1 || leftward_extent_below[n]<total_left) && m <= DIMENSION - 1 && m >= 0)
+		while ((Murein[n][m].Return_Number_Bonds_Glycan() == 1 || leftward_extent_below[n] < total_left) && m <= DIMENSION - 1 && m >= 0)
 		{
 			leftward_extent_below[n]++;
 			m--;
@@ -309,11 +312,7 @@ void Polymer::Find_Force_Downwards(double Input_Force, int p, int q)
 
 		total_left = leftward_extent_below[n];
 
-		if (q - leftward_extent_below[n] < -1)
-		{
-			cout << "Error, too far left" << endl;
-			system("pause");
-		}
+		
 
 	}
 
@@ -334,11 +333,7 @@ void Polymer::Find_Force_Downwards(double Input_Force, int p, int q)
 
 		total_right = rightward_extent_below[n];
 
-		if (q + rightward_extent_below[n] > DIMENSION)
-		{
-			cout << "Error, too far right" << endl;
-			system("pause");
-		}
+		
 	}
 
 	if (p == DIMENSION - 1)
@@ -385,7 +380,7 @@ void Polymer::Find_Force_Downwards(double Input_Force, int p, int q)
 		}
 
 		Numerator[p][q] = Numerator[p][q] * (double)tally_peptides;
-		cout << "Num" << Numerator[p][q] << endl;
+		
 	}
 
 	Denominator[p][q] = 1;
@@ -421,21 +416,342 @@ void Polymer::Find_Force_Downwards(double Input_Force, int p, int q)
 		}
 
 		Denominator[p][q] = Denominator[p][q] * (double)tally_peptides;
-		cout << "Den" << Denominator[p][q] << endl;
+		
 	}
 
 	Force_Downwards[p][q] = Input_Force*Numerator[p][q] / Denominator[p][q];
 
 }
 
-void Polymer::Calculate_Bond_With_Max_Force()
+void Polymer::Find_Force_Leftwards(double Input_Force, int q, int p)
 {
+
+	//we need to find the number of bonds joining level p-1 and p-2, then p-2 and p-3... 0 and 1
+	//first we need to find what length levels p-1 and p-2 are
+
+	int leftward_extent_above[DIMENSION]; //n can take values less that p and represents the level
+	int rightward_extent_above[DIMENSION]; //n can take values less that p and represents the level
+
+	int total_left = 0; // this total represents the current length of all the bars being taken into account
+
+	for (int n = p - 1; n > 0; n--)
+	{
+		int m = q;
+
+		leftward_extent_above[n] = 0;
+
+		while ((Murein[n][m].Return_Number_Bonds_Peptide() == 1 || leftward_extent_above[n] < total_left) && m <= DIMENSION - 1 && m >= 0)
+		{
+			leftward_extent_above[n]++;
+			m--;
+		}
+
+		total_left = leftward_extent_above[n];
+
+		
+
+	}
+
+	int total_right = 0; // this total represents the current length of all the bars being taken into account
+
+	for (int n = p - 1; n > 0; n--)
+	{
+
+		rightward_extent_above[n] = 0;
+		int m = q;
+
+		while ((Murein[n][m].Return_Number_Bonds_Peptide() == 1 || rightward_extent_above[n] < total_right) && m <= DIMENSION - 1 && m >= 0)
+		{
+			rightward_extent_above[n]++;
+			m++;
+		}
+
+		total_right = rightward_extent_above[n];
+
+		
+	}
+
+	if (p == 0)
+	{
+		leftward_extent_above[p] = q;
+		rightward_extent_above[p] = DIMENSION - 1 - q;
+	}
+
+
+	//this finds the lengths of all the above levels
+
+	//now the numerator is the number of joins which connects anything within these levels to the one above it
+
+	Numerator[p][q] = 1;
+
+	for (int n = p - 1; n >= 0; n--)
+	{
+		int m = q;
+		int tally_Glycan = 0;
+
+		for (int i = 0; i < leftward_extent_above[n]; i++)
+		{
+			if (Murein[n][m - i].Return_Number_Bonds_Glycan() == 1)
+			{
+				tally_Glycan++;
+			}
+
+		}
+
+		for (int i = 0; i < rightward_extent_above[n]; i++)
+		{
+			if (Murein[n][m + i].Return_Number_Bonds_Glycan() == 1)
+			{
+				tally_Glycan++;
+			}
+		}
+
+		tally_Glycan = tally_Glycan - Murein[n][q].Return_Number_Bonds_Glycan();
+
+		if (n - 1 >= DIMENSION - 1 || n - 1 <= 0)
+		{
+			tally_Glycan = DIMENSION;
+		}
+
+
+		Numerator[p][q] = Numerator[p][q] * (double)tally_Glycan;
+		
+	}
+
+	Denominator[p][q] = 1;
+
+	for (int n = p - 1; n >= 0; n--)
+	{
+		int m = q;
+		int tally_Glycan = 0;
+
+		for (int i = 0; i < leftward_extent_above[n]; i++)
+		{
+			if (Murein[n - 1][m - i].Return_Number_Bonds_Glycan() == 1)
+			{
+				tally_Glycan++;
+			}
+
+		}
+
+		for (int i = 0; i < rightward_extent_above[n]; i++)
+		{
+			if (Murein[n - 1][m + i].Return_Number_Bonds_Glycan() == 1)
+			{
+				tally_Glycan++;
+			}
+
+
+		}
+
+		tally_Glycan = tally_Glycan - Murein[n][q].Return_Number_Bonds_Glycan();
+
+		if (n + 1 >= DIMENSION - 1 || n <= 0)
+		{
+			tally_Glycan = DIMENSION;
+		}
+
+		Denominator[p][q] = Denominator[p][q] * (double)tally_Glycan;
+		
+	}
+
+	int m = q;
+
+	int leftward_extent = 0;
+
+	while (Murein[p][m].Return_Number_Bonds_Peptide() == 1 && m <= DIMENSION - 1 && m >= 0)
+	{
+		leftward_extent++;
+		m--;
+	}
+
+	int rightward_extent = 0;
+	m = q;
+
+	while (Murein[p][m].Return_Number_Bonds_Peptide() == 1 && m <= DIMENSION - 1 && m >= 0)
+	{
+		rightward_extent++;
+		m++;
+	}
+
+	m = q;
+	int tally_Glycan = 0;
+
+	for (int i = 0; i < leftward_extent; i++)
+	{
+		if (Murein[p][m - i].Return_Number_Bonds_Glycan() == 1)
+		{
+			tally_Glycan++;
+		}
+
+	}
+
+	for (int i = 0; i < rightward_extent; i++)
+	{
+		if (Murein[p][m + i].Return_Number_Bonds_Glycan() == 1)
+		{
+			tally_Glycan++;
+		}
+	}
+
+	tally_Glycan = tally_Glycan - Murein[p][q].Return_Number_Bonds_Glycan();
+
+	double Frac = (double)Murein[p][q].Return_Number_Bonds_Glycan() / (double)tally_Glycan;
+
+	Force_Leftwards[q][p] = Frac*Input_Force*Numerator[p][q] / Denominator[p][q];
+
+}
+
+void Polymer::Find_Force_Rightwards(double Input_Force, int q, int p)
+{
+	//we need to find the number of bonds joining level p-1 and p-2, then p-2 and p-3... 0 and 1
+	//first we need to find what length levels p-1 and p-2 are
+
+	int leftward_extent_below[DIMENSION]; //n can take values less that p and represents the level
+	int rightward_extent_below[DIMENSION]; //n can take values less that p and represents the level
+
+	int total_left = 0; // this total represents the current length of all the bars being taken into account
+
+	for (int n = p + 1; n < DIMENSION; n++)
+	{
+		int m = q;
+
+		leftward_extent_below[n] = 0;
+
+		while ((Murein[n][m].Return_Number_Bonds_Peptide() == 1 || leftward_extent_below[n] < total_left) && m <= DIMENSION - 1 && m >= 0)
+		{
+			leftward_extent_below[n]++;
+			m--;
+		}
+
+		total_left = leftward_extent_below[n];
+
+		
+
+	}
+
+	int total_right = 0; // this total represents the current length of all the bars being taken into account
+
+	for (int n = p + 1; n < DIMENSION; n++)
+	{
+
+		rightward_extent_below[n] = 0;
+		int m = q;
+		int end = 1;
+
+		while ((Murein[n][m].Return_Number_Bonds_Peptide() || rightward_extent_below[n] < total_right) && m <= DIMENSION - 1 && m >= 0)
+		{
+			rightward_extent_below[n]++;
+			m++;
+		}
+
+		total_right = rightward_extent_below[n];
+
+		
+	}
+
+	if (p == DIMENSION - 1)
+	{
+		leftward_extent_below[p] = q;
+		rightward_extent_below[p] = DIMENSION - 1 - q;
+	}
+
+
+	//this finds the lengths of all the above levels
+
+	//now the numerator is the number of joins which connects anything within these levels to the one above it
+
+	Numerator[p][q] = 1;
+
+	for (int n = p + 1; n < DIMENSION; n++)
+	{
+		int m = q;
+		int tally_Glycan = 0;
+
+		for (int i = 0; i < leftward_extent_below[n]; i++)
+		{
+			if (Murein[n - 1][m - i].Return_Number_Bonds_Glycan() == 1)
+			{
+				tally_Glycan++;
+			}
+
+		}
+
+		for (int i = 0; i < rightward_extent_below[n]; i++)
+		{
+			if (Return_Number_Bonds_Glycan(n, m + i) == 1)
+			{
+				tally_Glycan++;
+			}
+
+		}
+
+		tally_Glycan = tally_Glycan - Murein[n][q].Return_Number_Bonds_Glycan();
+
+		if (n - 1 >= DIMENSION - 1 || n - 1 <= 0)
+		{
+			tally_Glycan = DIMENSION;
+		}
+
+		Numerator[p][q] = Numerator[p][q] * (double)tally_Glycan;
+		
+	}
+
+	Denominator[p][q] = 1;
+
+	for (int n = p + 1; n < DIMENSION; n++)
+	{
+		int m = q;
+		int tally_Glycan = 0;
+
+		for (int i = 0; i < leftward_extent_below[n]; i++)
+		{
+			if (Murein[n - 1][m - i].Return_Number_Bonds_Glycan() == 1)
+			{
+				tally_Glycan++;
+			}
+
+		}
+
+		for (int i = 0; i < rightward_extent_below[n]; i++)
+		{
+			if (Murein[n - 1][m + i].Return_Number_Bonds_Glycan() == 1)
+			{
+				tally_Glycan++;
+			}
+
+		}
+
+		tally_Glycan = tally_Glycan - Murein[n][q].Return_Number_Bonds_Glycan();
+
+		if (n + 1 >= DIMENSION - 1 || n <= 0)
+		{
+			tally_Glycan = DIMENSION;
+		}
+
+		Denominator[p][q] = Denominator[p][q] * (double)tally_Glycan;
+		
+	}
+
+	Force_Rightwards[q][p] = Input_Force*Numerator[p][q] / Denominator[p][q];
 
 }
 
 void Polymer::Break_Bond()
 {
+	//peptide=0, glycan=1
+	if (Max_Force_Peptide_Or_Glycan == 0)
+	{
+		Murein[Max_Force_Vertical_Coordinate][Max_Force_Horizontal_Coordinate].Set_Number_Bonds_Peptide(0);
+		return;
+	}
+	else if (Max_Force_Peptide_Or_Glycan==1)
+	{
+		Murein[Max_Force_Vertical_Coordinate][Max_Force_Horizontal_Coordinate].Set_Number_Bonds_Glycan(0);
+		return;
+	}
 
+	cout << "Break Bond Broken" << endl;
 }
 
 double Polymer::Return_Spring_Constant_Horizontal()
@@ -450,16 +766,30 @@ double Polymer::Return_Spring_Constant_Verticle()
 
 void Polymer::Sort_Lengths_Into_Groups_For_Histogram()
 {
+	
+
+	int Max_Peptide_Vert;
+	int Max_Peptide_Horiz;
+	int Max_Glycan_Vert;
+	int Max_Glycan_Horiz;
+
+	Max_Length_Peptide = 0;
+	Max_Length_Glycan = 0;
+	Min_Length_Glycan = 1000000000000000;
+	Min_Length_Peptide = 10000000000000000;
+
 	for (int i = 0; i < DIMENSION; i++)
 	{
 		for (int j = 0; j < DIMENSION; j++)
-		{
-
+		{			
 			cout << Murein[i][j].Return_Length_Peptide() << "\t" << Murein[i][j].Return_Vertical_Force() << endl;
 
 			if (Murein[i][j].Return_Length_Peptide() > Max_Length_Peptide)
 			{
 				Max_Length_Peptide = Murein[i][j].Return_Length_Peptide();
+				Max_Peptide_Vert=i;
+				Max_Peptide_Horiz=j;
+				
 			}
 
 			if (Murein[i][j].Return_Length_Peptide() < Min_Length_Peptide)
@@ -467,27 +797,48 @@ void Polymer::Sort_Lengths_Into_Groups_For_Histogram()
 				Min_Length_Peptide = Murein[i][j].Return_Length_Peptide();
 			}
 
-			if (Murein[i][j].Return_Length_Peptide() > Max_Length_Peptide)
+
+			if (Murein[i][j].Return_Length_Glycan() > Max_Length_Glycan)
 			{
-				Max_Length_Peptide = Murein[i][j].Return_Length_Peptide();
+				Max_Length_Glycan = Murein[i][j].Return_Length_Glycan();
+				Max_Glycan_Vert=i;
+				Max_Glycan_Horiz=j;
 			}
 
-			if (Murein[i][j].Return_Length_Peptide() < Min_Length_Peptide)
+			if (Murein[i][j].Return_Length_Glycan() < Min_Length_Glycan)
 			{
-				Min_Length_Peptide = Murein[i][j].Return_Length_Peptide();
+				Min_Length_Glycan = Murein[i][j].Return_Length_Glycan();
 			}
 
 		}
 	}
 
-	if (Min_Length_Peptide == Max_Length_Peptide)
+	if (Murein[Max_Glycan_Vert][Max_Glycan_Horiz].Return_Horizontal_Force() > Murein[Max_Peptide_Vert][Max_Peptide_Horiz].Return_Vertical_Force())
 	{
-		cout << "ERROR OF ERRORS" << endl;
-		system("pause");
+		Max_Force_Horizontal_Coordinate = Max_Glycan_Horiz;
+		Max_Force_Vertical_Coordinate = Max_Glycan_Vert;
+		Max_Force_Peptide_Or_Glycan = 1;
 	}
+	else
+	{
+		Max_Force_Horizontal_Coordinate = Max_Peptide_Horiz;
+		Max_Force_Vertical_Coordinate = Max_Peptide_Vert;
+		Max_Force_Peptide_Or_Glycan = 0;
+	}
+	
 
 	Splitter_For_Sorting_G = (Max_Length_Glycan - Min_Length_Glycan) / (double)100;
 	Splitter_For_Sorting_P = (Max_Length_Peptide - Min_Length_Peptide) / (double)100;
+
+	if (Min_Length_Peptide == Max_Length_Peptide)
+	{
+		Splitter_For_Sorting_P = 1;
+	}
+
+	if (Min_Length_Glycan == Max_Length_Glycan)
+	{
+		Splitter_For_Sorting_G = 1;
+	}
 
 }// ensure if min=max then lengths remain the same
 

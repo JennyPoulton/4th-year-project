@@ -17,9 +17,14 @@ private:
 
 	double Force_Upwards[DIMENSION][DIMENSION];
 	double Force_Downwards[DIMENSION][DIMENSION];
+	double Force_Leftwards[DIMENSION][DIMENSION];
+	double Force_Rightwards[DIMENSION][DIMENSION];
 
 	void Find_Force_Upwards(double Input_Force, int p, int q);
 	void Find_Force_Downwards(double Input_Force, int p, int q);
+
+	void Find_Force_Leftwards(double Input_Force, int q, int p);
+	void Find_Force_Rightwards(double Input_Force, int q, int p);
 
 	double Spring_Constant_Verticle;
 	double Spring_Constant_Horizontal;
@@ -39,7 +44,6 @@ public:
 
 	void Set_Forces_And_Lengths(double input_force);
 
-	void Calculate_Bond_With_Max_Force();
 	void Break_Bond();
 
 	double Return_Spring_Constant_Horizontal();
@@ -50,6 +54,10 @@ public:
 	double Return_Splitter_For_Sorting_P();
 	double Return_Min_Length_G();
 	double Return_Min_Length_P();
+	int Max_Force_Horizontal_Coordinate;
+	int Max_Force_Vertical_Coordinate;
+	int Max_Force_Peptide_Or_Glycan;
+
 
 	void Set_Length_Glycan(double l, int p, int q);
 	double Return_Length_Glycan(int p, int q);
