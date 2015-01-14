@@ -54,45 +54,22 @@ int main(void)
 
 	Polymer StaphAureous;
 
-	//double Force = 5;
-
-	//for (int i = 0; i < 100; i++)
-	//{
-	//	StaphAureous.Set_Forces_And_Lengths(Force);
-	//	StaphAureous.Calculate_Spring_Constant_Horizontal();
-	//	StaphAureous.Calculate_Spring_Constant_Vertical();
-
-	//	Output2 << StaphAureous.Return_Spring_Constant_Horizontal() << "\t" << StaphAureous.Return_Spring_Constant_Verticle() << endl;
-
-	//	StaphAureous.Sort_Lengths_Into_Groups_For_Histogram();
-	/*	Output3 << "Peptide" << endl;
-
-		for (int j = 0; j < DIMENSION; j++)
-		{
-			for (int k = 0; k < DIMENSION; k++)
-			{
-				Output3 << StaphAureous.Return_Number_Bonds_Peptide(j, k) << "\t";
-			}
-
-			Output3 << endl;
-		}
-
-		Output3 << "Glycan" << endl;
-
-		for (int j = 0; j < DIMENSION; j++)
-		{
-			for (int k = 0; k < DIMENSION; k++)
-			{
-				Output3 << StaphAureous.Return_Number_Bonds_Glycan(j, k) << "\t";
-			}
-
-			Output3 << endl;*/
-	//	}
-
-	//	StaphAureous.Break_Bond();
-	//}
-
 	double Force = 5;
+
+	/*for (int i = 0; i < 100; i++)
+	{
+		StaphAureous.Set_Forces_And_Lengths(Force);
+		StaphAureous.Calculate_Spring_Constant_Horizontal();
+		StaphAureous.Calculate_Spring_Constant_Vertical();
+
+		Output2 << StaphAureous.Return_Spring_Constant_Horizontal() << "\t" << StaphAureous.Return_Spring_Constant_Verticle() << endl;
+
+		StaphAureous.Sort_Lengths_Into_Groups_For_Histogram();
+	
+
+		StaphAureous.Break_Bond();
+	}*/
+
 
 	StaphAureous.Set_Forces_And_Lengths(Force);
 
@@ -147,6 +124,8 @@ int main(void)
 
 	for (int j = 0; j < DIMENSION; j++)
 	{
+		Output3 << j << "\t";
+
 		for (int k = 0; k < DIMENSION; k++)
 		{
 			Output3 << StaphAureous.Return_Number_Bonds_Peptide(j, k) << "\t";
@@ -159,6 +138,8 @@ int main(void)
 
 	for (int j = 0; j < DIMENSION; j++)
 	{
+		Output3 << j << "\t";
+
 		for (int k = 0; k < DIMENSION; k++)
 		{
 			Output3 << StaphAureous.Return_Number_Bonds_Glycan(j, k) << "\t";

@@ -46,7 +46,7 @@ void Polymer::Delete_Dead_Ends_And_Unjoined()
 
 void Polymer::Calculate_Spring_Constant_Horizontal()
 {
-	int Number[DIMENSION];
+	double Number[DIMENSION];
 	for (int i = 0; i < DIMENSION; i++)
 	{
 		Number[i] = 0;
@@ -69,7 +69,7 @@ void Polymer::Calculate_Spring_Constant_Horizontal()
 
 void Polymer::Calculate_Spring_Constant_Vertical()
 {
-	int Number[DIMENSION];
+	double Number[DIMENSION];
 	for (int i = 0; i < DIMENSION; i++)
 	{
 		Number[i] = 0;
@@ -115,6 +115,12 @@ void Polymer::Find_Force_Upwards(double Input_Force, int p, int q)
 
 	//we need to find the number of bonds joining level p-1 and p-2, then p-2 and p-3... 0 and 1
 	//first we need to find what length levels p-1 and p-2 are
+
+	if (Murein[p][q].Return_Number_Bonds_Peptide() == 0)
+	{
+		Force_Upwards[p][q] = 0;
+		return;
+	}
 
 	int leftward_extent_above[DIMENSION]; //n can take values less that p and represents the level
 	int rightward_extent_above[DIMENSION]; //n can take values less that p and represents the level
@@ -226,8 +232,6 @@ void Polymer::Find_Force_Upwards(double Input_Force, int p, int q)
 			{
 				tally_peptides++;
 			}
-
-
 		}
 
 		tally_peptides = tally_peptides - Murein[n][q].Return_Number_Bonds_Peptide();
@@ -290,6 +294,12 @@ void Polymer::Find_Force_Upwards(double Input_Force, int p, int q)
 
 void Polymer::Find_Force_Downwards(double Input_Force, int p, int q)
 {
+	
+	if (Murein[p][q].Return_Number_Bonds_Peptide() == 0)
+	{
+		Force_Downwards[p][q] = 0;
+		return;
+	}
 	//we need to find the number of bonds joining level p-1 and p-2, then p-2 and p-3... 0 and 1
 	//first we need to find what length levels p-1 and p-2 are
 
@@ -426,6 +436,11 @@ void Polymer::Find_Force_Downwards(double Input_Force, int p, int q)
 void Polymer::Find_Force_Leftwards(double Input_Force, int q, int p)
 {
 
+	if (Murein[q][p].Return_Number_Bonds_Glycan() == 0)
+	{
+		Force_Leftwards[q][p] = 0;
+		return;
+	}
 	//we need to find the number of bonds joining level p-1 and p-2, then p-2 and p-3... 0 and 1
 	//first we need to find what length levels p-1 and p-2 are
 
@@ -604,6 +619,12 @@ void Polymer::Find_Force_Leftwards(double Input_Force, int q, int p)
 
 void Polymer::Find_Force_Rightwards(double Input_Force, int q, int p)
 {
+	if (Murein[q][p].Return_Number_Bonds_Glycan() == 0)
+	{
+		Force_Leftwards[q][p] = 0;
+		return;
+	}
+
 	//we need to find the number of bonds joining level p-1 and p-2, then p-2 and p-3... 0 and 1
 	//first we need to find what length levels p-1 and p-2 are
 
@@ -782,7 +803,7 @@ void Polymer::Sort_Lengths_Into_Groups_For_Histogram()
 	{
 		for (int j = 0; j < DIMENSION; j++)
 		{
-			cout << Murein[i][j].Return_Length_Peptide() << "\t" << Murein[i][j].Return_Vertical_Force() << endl;
+			cout << i << "\t" << j << "\t" << Murein[i][j].Return_Length_Peptide() << "\t" << Murein[i][j].Return_Vertical_Force() << endl;
 
 			if (Murein[i][j].Return_Length_Peptide() > Max_Length_Peptide)
 			{
