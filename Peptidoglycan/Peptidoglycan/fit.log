@@ -1,0 +1,380 @@
+
+
+*******************************************************************************
+Mon Dec 15 09:37:18 2014
+
+
+FIT:    data read from "OutputForce1.txt" using 1 : 5
+        format = x:z
+        x range restricted to [0.00000 : 5.00000]
+BREAK:          No data to fit 
+
+
+
+*******************************************************************************
+Mon Dec 15 09:37:26 2014
+
+
+FIT:    data read from "OutputForce1.txt" using 1 : 2
+        format = x:z
+        x range restricted to [0.00000 : 5.00000]
+        #datapoints = 100
+        residuals are weighted equally (unit weight)
+
+function used for fitting: Norm(x,m,s)
+fitted parameters initialized with current variable values
+
+
+
+ Iteration 0
+ WSSR        : 835.24            delta(WSSR)/WSSR   : 0
+ delta(WSSR) : 0                 limit for stopping : 1e-005
+ lambda	  : 0.193498
+
+initial set of free parameter values
+
+m               = 1
+s               = 1
+
+After 57 iterations the fit converged.
+final sum of squares of residuals : 379.719
+rel. change during last iteration : -5.11238e-006
+
+degrees of freedom    (FIT_NDF)                        : 98
+rms of residuals      (FIT_STDFIT) = sqrt(WSSR/ndf)    : 1.96842
+variance of residuals (reduced chisquare) = WSSR/ndf   : 3.87469
+
+Final set of parameters            Asymptotic Standard Error
+=======================            ==========================
+
+m               = 2.19083          +/- 0.004274     (0.1951%)
+s               = 0.0267917        +/- 0.004468     (16.68%)
+
+
+correlation matrix of the fit parameters:
+
+               m      s      
+m               1.000 
+s              -0.155  1.000 
+
+
+*******************************************************************************
+Mon Dec 15 09:50:50 2014
+
+
+FIT:    data read from "Murein_Force.txt" using 1 : 2
+        format = x:z
+        x range restricted to [0.00000 : 5.00000]
+        #datapoints = 100
+        residuals are weighted equally (unit weight)
+
+function used for fitting: Norm(x,m,s)
+fitted parameters initialized with current variable values
+
+
+
+ Iteration 0
+ WSSR        : 670.769           delta(WSSR)/WSSR   : 0
+ delta(WSSR) : 0                 limit for stopping : 1e-005
+ lambda	  : 57.9624
+
+initial set of free parameter values
+
+m               = 2.19083
+s               = 0.0267917
+
+After 41 iterations the fit converged.
+final sum of squares of residuals : 197.673
+rel. change during last iteration : -1.62653e-006
+
+degrees of freedom    (FIT_NDF)                        : 98
+rms of residuals      (FIT_STDFIT) = sqrt(WSSR/ndf)    : 1.42024
+variance of residuals (reduced chisquare) = WSSR/ndf   : 2.01707
+
+Final set of parameters            Asymptotic Standard Error
+=======================            ==========================
+
+m               = 1.48393          +/- 0.007542     (0.5082%)
+s               = 0.0526037        +/- 0.006162     (11.71%)
+
+
+correlation matrix of the fit parameters:
+
+               m      s      
+m               1.000 
+s              -0.017  1.000 
+
+
+*******************************************************************************
+Mon Dec 15 10:09:22 2014
+
+
+FIT:    data read from "Murein_Force.txt" using 1 : 2
+        format = x:z
+        x range restricted to [0.00000 : 5.00000]
+        #datapoints = 100
+        residuals are weighted equally (unit weight)
+
+function used for fitting: Norm(x,m,s,t)
+fitted parameters initialized with current variable values
+
+
+
+ Iteration 0
+ WSSR        : 507.16            delta(WSSR)/WSSR   : 0
+ delta(WSSR) : 0                 limit for stopping : 1e-005
+ lambda	  : 0
+
+initial set of free parameter values
+
+m               = 1.48393
+s               = 0.0526037
+BREAK:          Singular matrix in Givens()
+
+
+
+*******************************************************************************
+Mon Dec 15 10:09:29 2014
+
+
+FIT:    data read from "Murein_Force.txt" using 1 : 2
+        format = x:z
+        x range restricted to [0.00000 : 5.00000]
+        #datapoints = 100
+        residuals are weighted equally (unit weight)
+
+function used for fitting: Norm(x,m,s,t)
+fitted parameters initialized with current variable values
+
+
+
+ Iteration 0
+ WSSR        : 197.673           delta(WSSR)/WSSR   : 0
+ delta(WSSR) : 0                 limit for stopping : 1e-005
+ lambda	  : 17.1798
+
+initial set of free parameter values
+
+m               = 1.48393
+s               = 0.0526563
+t               = 1
+
+After 9 iterations the fit converged.
+final sum of squares of residuals : 165.063
+rel. change during last iteration : -5.55858e-006
+
+degrees of freedom    (FIT_NDF)                        : 97
+rms of residuals      (FIT_STDFIT) = sqrt(WSSR/ndf)    : 1.30448
+variance of residuals (reduced chisquare) = WSSR/ndf   : 1.70168
+
+Final set of parameters            Asymptotic Standard Error
+=======================            ==========================
+
+m               = 1.49008          +/- 0.008061     (0.541%)
+s               = 0.0808152        +/- 0.008069     (9.985%)
+t               = 1.63606          +/- 0.1414       (8.64%)
+
+
+correlation matrix of the fit parameters:
+
+               m      s      t      
+m               1.000 
+s              -0.009  1.000 
+t               0.000  0.578  1.000 
+
+
+*******************************************************************************
+Mon Dec 15 10:16:13 2014
+
+
+FIT:    data read from "Murein_Force_For_Fit.txt" using 1 : 2
+        format = x:z
+        x range restricted to [0.00000 : 5.00000]
+        #datapoints = 62
+        residuals are weighted equally (unit weight)
+
+function used for fitting: Norm(x,m,s,t)
+fitted parameters initialized with current variable values
+
+
+
+ Iteration 0
+ WSSR        : 164.47            delta(WSSR)/WSSR   : 0
+ delta(WSSR) : 0                 limit for stopping : 1e-005
+ lambda	  : 18.4549
+
+initial set of free parameter values
+
+m               = 1.49008
+s               = 0.0808152
+t               = 1.63606
+
+After 5 iterations the fit converged.
+final sum of squares of residuals : 164.354
+rel. change during last iteration : -9.70951e-006
+
+degrees of freedom    (FIT_NDF)                        : 59
+rms of residuals      (FIT_STDFIT) = sqrt(WSSR/ndf)    : 1.66903
+variance of residuals (reduced chisquare) = WSSR/ndf   : 2.78566
+
+Final set of parameters            Asymptotic Standard Error
+=======================            ==========================
+
+m               = 1.49001          +/- 0.01082      (0.7261%)
+s               = 0.0838136        +/- 0.01129      (13.47%)
+t               = 1.66989          +/- 0.1893       (11.34%)
+
+
+correlation matrix of the fit parameters:
+
+               m      s      t      
+m               1.000 
+s              -0.061  1.000 
+t              -0.038  0.607  1.000 
+
+
+*******************************************************************************
+Mon Dec 15 10:19:22 2014
+
+
+FIT:    data read from "Murein_Force.txt" using 1 : 2
+        format = x:z
+        x range restricted to [0.00000 : 5.00000]
+        #datapoints = 100
+        residuals are weighted equally (unit weight)
+
+function used for fitting: Norm(x,m,s,t)
+fitted parameters initialized with current variable values
+
+
+
+ Iteration 0
+ WSSR        : 423.008           delta(WSSR)/WSSR   : 0
+ delta(WSSR) : 0                 limit for stopping : 1e-005
+ lambda	  : 1.59162
+
+initial set of free parameter values
+
+m               = 1.49001
+s               = 0.0838136
+t               = 1.66989
+
+After 24 iterations the fit converged.
+final sum of squares of residuals : 324.505
+rel. change during last iteration : -7.10839e-006
+
+degrees of freedom    (FIT_NDF)                        : 97
+rms of residuals      (FIT_STDFIT) = sqrt(WSSR/ndf)    : 1.82905
+variance of residuals (reduced chisquare) = WSSR/ndf   : 3.34542
+
+Final set of parameters            Asymptotic Standard Error
+=======================            ==========================
+
+m               = 1.21773          +/- 0.1704       (13.99%)
+s               = -0.28367         +/- 0.06098      (21.5%)
+t               = 1.5597           +/- 0.006396     (0.4101%)
+
+
+correlation matrix of the fit parameters:
+
+               m      s      t      
+m               1.000 
+s               0.093  1.000 
+t               0.227 -0.118  1.000 
+
+
+*******************************************************************************
+Mon Dec 15 10:21:01 2014
+
+
+FIT:    data read from "Murein_Force.txt" using 1 : 2
+        format = x:z
+        x range restricted to [0.00000 : 5.00000]
+        #datapoints = 100
+        residuals are weighted equally (unit weight)
+
+function used for fitting: Norm(x,m,t)
+fitted parameters initialized with current variable values
+
+
+
+ Iteration 0
+ WSSR        : 565.695           delta(WSSR)/WSSR   : 0
+ delta(WSSR) : 0                 limit for stopping : 1e-005
+ lambda	  : 1.54964
+
+initial set of free parameter values
+
+m               = 1.21773
+t               = 1.5597
+
+After 101 iterations the fit converged.
+final sum of squares of residuals : 384.09
+rel. change during last iteration : -6.99278e-006
+
+degrees of freedom    (FIT_NDF)                        : 98
+rms of residuals      (FIT_STDFIT) = sqrt(WSSR/ndf)    : 1.97972
+variance of residuals (reduced chisquare) = WSSR/ndf   : 3.91929
+
+Final set of parameters            Asymptotic Standard Error
+=======================            ==========================
+
+m               = 0.0226358        +/- 0.03741      (165.3%)
+t               = -5.45582         +/- 5.808        (106.5%)
+
+
+correlation matrix of the fit parameters:
+
+               m      t      
+m               1.000 
+t               0.994  1.000 
+
+
+*******************************************************************************
+Mon Dec 15 10:22:36 2014
+
+
+FIT:    data read from "Murein_Force.txt" using 1 : 2
+        format = x:z
+        x range restricted to [0.00000 : 5.00000]
+        #datapoints = 100
+        residuals are weighted equally (unit weight)
+
+function used for fitting: Norm(x,m,s,t)
+fitted parameters initialized with current variable values
+
+
+
+ Iteration 0
+ WSSR        : 1043.86           delta(WSSR)/WSSR   : 0
+ delta(WSSR) : 0                 limit for stopping : 1e-005
+ lambda	  : 5.59538
+
+initial set of free parameter values
+
+m               = 0.0226358
+s               = -0.28367
+t               = -5.45582
+
+After 126 iterations the fit converged.
+final sum of squares of residuals : 384.661
+rel. change during last iteration : -9.46405e-006
+
+degrees of freedom    (FIT_NDF)                        : 97
+rms of residuals      (FIT_STDFIT) = sqrt(WSSR/ndf)    : 1.99138
+variance of residuals (reduced chisquare) = WSSR/ndf   : 3.96558
+
+Final set of parameters            Asymptotic Standard Error
+=======================            ==========================
+
+m               = 14.3042          +/- 427.4        (2988%)
+s               = -7.03813         +/- 116.7        (1659%)
+t               = -102.646         +/- 7379         (7188%)
+
+
+correlation matrix of the fit parameters:
+
+               m      s      t      
+m               1.000 
+s              -1.000  1.000 
+t              -1.000  0.999  1.000 

@@ -7,8 +7,8 @@
 #define GLYCAN_SPRING_CONSTANT 0.5
 #define PEPTIDE_SPRING_CONSTANT 0.4
 
-#define PEPTIDE_PROB 1
-#define GLYCAN_PROB 1
+#define PEPTIDE_PROB 0.9
+#define GLYCAN_PROB 0.9
 
 class Subunit 
 {

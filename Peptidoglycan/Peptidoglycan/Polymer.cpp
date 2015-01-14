@@ -154,7 +154,7 @@ void Polymer::Find_Force_Upwards(double Input_Force, int p, int q)
 
 		total_right = rightward_extent_above[n];
 
-	
+
 	}
 
 	if (p == 0)
@@ -238,7 +238,7 @@ void Polymer::Find_Force_Upwards(double Input_Force, int p, int q)
 		}
 
 		Denominator[p][q] = Denominator[p][q] * (double)tally_peptides;
-		
+
 	}
 
 	int m = q;
@@ -312,7 +312,7 @@ void Polymer::Find_Force_Downwards(double Input_Force, int p, int q)
 
 		total_left = leftward_extent_below[n];
 
-		
+
 
 	}
 
@@ -333,7 +333,7 @@ void Polymer::Find_Force_Downwards(double Input_Force, int p, int q)
 
 		total_right = rightward_extent_below[n];
 
-		
+
 	}
 
 	if (p == DIMENSION - 1)
@@ -380,7 +380,7 @@ void Polymer::Find_Force_Downwards(double Input_Force, int p, int q)
 		}
 
 		Numerator[p][q] = Numerator[p][q] * (double)tally_peptides;
-		
+
 	}
 
 	Denominator[p][q] = 1;
@@ -416,7 +416,7 @@ void Polymer::Find_Force_Downwards(double Input_Force, int p, int q)
 		}
 
 		Denominator[p][q] = Denominator[p][q] * (double)tally_peptides;
-		
+
 	}
 
 	Force_Downwards[p][q] = Input_Force*Numerator[p][q] / Denominator[p][q];
@@ -448,7 +448,7 @@ void Polymer::Find_Force_Leftwards(double Input_Force, int q, int p)
 
 		total_left = leftward_extent_above[n];
 
-		
+
 
 	}
 
@@ -468,7 +468,7 @@ void Polymer::Find_Force_Leftwards(double Input_Force, int q, int p)
 
 		total_right = rightward_extent_above[n];
 
-		
+
 	}
 
 	if (p == 0)
@@ -515,7 +515,7 @@ void Polymer::Find_Force_Leftwards(double Input_Force, int q, int p)
 
 
 		Numerator[p][q] = Numerator[p][q] * (double)tally_Glycan;
-		
+
 	}
 
 	Denominator[p][q] = 1;
@@ -552,7 +552,7 @@ void Polymer::Find_Force_Leftwards(double Input_Force, int q, int p)
 		}
 
 		Denominator[p][q] = Denominator[p][q] * (double)tally_Glycan;
-		
+
 	}
 
 	int m = q;
@@ -626,7 +626,7 @@ void Polymer::Find_Force_Rightwards(double Input_Force, int q, int p)
 
 		total_left = leftward_extent_below[n];
 
-		
+
 
 	}
 
@@ -647,7 +647,7 @@ void Polymer::Find_Force_Rightwards(double Input_Force, int q, int p)
 
 		total_right = rightward_extent_below[n];
 
-		
+
 	}
 
 	if (p == DIMENSION - 1)
@@ -694,7 +694,7 @@ void Polymer::Find_Force_Rightwards(double Input_Force, int q, int p)
 		}
 
 		Numerator[p][q] = Numerator[p][q] * (double)tally_Glycan;
-		
+
 	}
 
 	Denominator[p][q] = 1;
@@ -730,7 +730,7 @@ void Polymer::Find_Force_Rightwards(double Input_Force, int q, int p)
 		}
 
 		Denominator[p][q] = Denominator[p][q] * (double)tally_Glycan;
-		
+
 	}
 
 	Force_Rightwards[q][p] = Input_Force*Numerator[p][q] / Denominator[p][q];
@@ -745,7 +745,7 @@ void Polymer::Break_Bond()
 		Murein[Max_Force_Vertical_Coordinate][Max_Force_Horizontal_Coordinate].Set_Number_Bonds_Peptide(0);
 		return;
 	}
-	else if (Max_Force_Peptide_Or_Glycan==1)
+	else if (Max_Force_Peptide_Or_Glycan == 1)
 	{
 		Murein[Max_Force_Vertical_Coordinate][Max_Force_Horizontal_Coordinate].Set_Number_Bonds_Glycan(0);
 		return;
@@ -766,7 +766,7 @@ double Polymer::Return_Spring_Constant_Verticle()
 
 void Polymer::Sort_Lengths_Into_Groups_For_Histogram()
 {
-	
+
 
 	int Max_Peptide_Vert;
 	int Max_Peptide_Horiz;
@@ -781,15 +781,15 @@ void Polymer::Sort_Lengths_Into_Groups_For_Histogram()
 	for (int i = 0; i < DIMENSION; i++)
 	{
 		for (int j = 0; j < DIMENSION; j++)
-		{			
+		{
 			cout << Murein[i][j].Return_Length_Peptide() << "\t" << Murein[i][j].Return_Vertical_Force() << endl;
 
 			if (Murein[i][j].Return_Length_Peptide() > Max_Length_Peptide)
 			{
 				Max_Length_Peptide = Murein[i][j].Return_Length_Peptide();
-				Max_Peptide_Vert=i;
-				Max_Peptide_Horiz=j;
-				
+				Max_Peptide_Vert = i;
+				Max_Peptide_Horiz = j;
+
 			}
 
 			if (Murein[i][j].Return_Length_Peptide() < Min_Length_Peptide)
@@ -801,8 +801,8 @@ void Polymer::Sort_Lengths_Into_Groups_For_Histogram()
 			if (Murein[i][j].Return_Length_Glycan() > Max_Length_Glycan)
 			{
 				Max_Length_Glycan = Murein[i][j].Return_Length_Glycan();
-				Max_Glycan_Vert=i;
-				Max_Glycan_Horiz=j;
+				Max_Glycan_Vert = i;
+				Max_Glycan_Horiz = j;
 			}
 
 			if (Murein[i][j].Return_Length_Glycan() < Min_Length_Glycan)
@@ -825,7 +825,7 @@ void Polymer::Sort_Lengths_Into_Groups_For_Histogram()
 		Max_Force_Vertical_Coordinate = Max_Peptide_Vert;
 		Max_Force_Peptide_Or_Glycan = 0;
 	}
-	
+
 
 	Splitter_For_Sorting_G = (Max_Length_Glycan - Min_Length_Glycan) / (double)100;
 	Splitter_For_Sorting_P = (Max_Length_Peptide - Min_Length_Peptide) / (double)100;
