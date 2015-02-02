@@ -11,7 +11,8 @@ using namespace std;
 int main(void)
 {
 
-	srand(time(NULL));
+	//srand(time(NULL));
+	srand(5);
 
 	ofstream Output1("OutputForce.txt");
 
@@ -36,7 +37,7 @@ int main(void)
 	}
 	else
 	{
-		cout << "Output 1 file opened successfully." << endl;
+		cout << "Output 2 file opened successfully." << endl;
 	}
 
 	ofstream Output3("OutputPictures.txt");
@@ -49,7 +50,7 @@ int main(void)
 	}
 	else
 	{
-		cout << "Output 1 file opened successfully." << endl;
+		cout << "Output 3 file opened successfully." << endl;
 	}
 
 	Polymer StaphAureous;
