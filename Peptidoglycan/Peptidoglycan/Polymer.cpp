@@ -136,7 +136,7 @@ void Polymer::Find_Force_Upwards(double Input_Force, int p, int q)
 		//glycans and q run horizontal, peptides and p run vertical, this set here
 		
 
-		while (((q - length_of_current_bar_left) > 0) && ( (Murein[p - scroll_up][q].Return_Number_Bonds_Glycan() == 1) || (length_of_current_bar_left <= length_of_below_bar_left)) )
+		while (((q - length_of_current_bar_left) > 0) && ((Murein[p - scroll_up][q - length_of_current_bar_left].Return_Number_Bonds_Glycan() == 1) || (length_of_current_bar_left <= length_of_below_bar_left)))
 		{
 			if (Murein[p - scroll_up][q - length_of_current_bar_left].Return_Number_Bonds_Peptide() == 1)
 			{
@@ -150,7 +150,7 @@ void Polymer::Find_Force_Upwards(double Input_Force, int p, int q)
 
 		}
 
-		while (((q + length_of_current_bar_right) < DIMENSION-1) && (Murein[p - scroll_up][q].Return_Number_Bonds_Glycan() == 1 || length_of_current_bar_right <= length_of_below_bar_right))
+		while (((q + length_of_current_bar_right) < DIMENSION - 1) && (Murein[p - scroll_up][q + length_of_current_bar_right].Return_Number_Bonds_Glycan() == 1 || length_of_current_bar_right <= length_of_below_bar_right))
 		{
 			if (Murein[p - scroll_up][q + length_of_current_bar_right].Return_Number_Bonds_Peptide() == 1)
 			{
@@ -163,7 +163,7 @@ void Polymer::Find_Force_Upwards(double Input_Force, int p, int q)
 		
 		if (p - scroll_up != 0)
 		{
-			while (((q - length_of_above_bar_left) > 0) && (Murein[p + 1 - scroll_up][q].Return_Number_Bonds_Glycan() == 1 || length_of_above_bar_left <= length_of_current_bar_left))
+			while (((q - length_of_above_bar_left) > 0) && (Murein[p + 1 - scroll_up][q - length_of_above_bar_left].Return_Number_Bonds_Glycan() == 1 || length_of_above_bar_left <= length_of_current_bar_left))
 			{
 
 				if (Murein[p - scroll_up][q - length_of_above_bar_left].Return_Number_Bonds_Peptide() == 1)
@@ -175,7 +175,7 @@ void Polymer::Find_Force_Upwards(double Input_Force, int p, int q)
 
 			}
 
-			while (((q + length_of_above_bar_right) < DIMENSION-1) && (Murein[p - scroll_up][q].Return_Number_Bonds_Glycan() == 1 || length_of_above_bar_right <= length_of_current_bar_right))
+			while (((q + length_of_above_bar_right) < DIMENSION - 1) && (Murein[p - scroll_up][q + length_of_above_bar_right].Return_Number_Bonds_Glycan() == 1 || length_of_above_bar_right <= length_of_current_bar_right))
 			{
 				if (Murein[p - scroll_up][q + length_of_above_bar_right].Return_Number_Bonds_Peptide() == 1)
 				{
@@ -241,7 +241,7 @@ void Polymer::Find_Force_Downwards(double Input_Force, int p, int q)
 
 		//glycans and q run horizontal, peptides and p run vertical, this set here
 
-		while (q - length_of_current_bar_left > 0 && (Murein[p + scroll_down][q].Return_Number_Bonds_Glycan() == 1 || length_of_current_bar_left <= length_of_above_bar_left))
+		while (q - length_of_current_bar_left > 0 && (Murein[p + scroll_down][q - length_of_current_bar_left].Return_Number_Bonds_Glycan() == 1 || length_of_current_bar_left <= length_of_above_bar_left))
 		{
 
 			if (Murein[p + scroll_down][q - length_of_current_bar_left].Return_Number_Bonds_Peptide() == 1)
@@ -253,7 +253,7 @@ void Polymer::Find_Force_Downwards(double Input_Force, int p, int q)
 
 		}
 
-		while (q + length_of_current_bar_right < DIMENSION-1 && (Murein[p + scroll_down][q].Return_Number_Bonds_Glycan() == 1 || length_of_current_bar_right <= length_of_above_bar_right))
+		while (q + length_of_current_bar_right < DIMENSION - 1 && (Murein[p + scroll_down][q + length_of_current_bar_right].Return_Number_Bonds_Glycan() == 1 || length_of_current_bar_right <= length_of_above_bar_right))
 		{
 			if (Murein[p + scroll_down][q + length_of_current_bar_right].Return_Number_Bonds_Peptide() == 1)
 			{
@@ -265,7 +265,7 @@ void Polymer::Find_Force_Downwards(double Input_Force, int p, int q)
 
 		if (p + scroll_down != DIMENSION-1)
 		{
-			while (q - length_of_below_bar_left > 0 && (Murein[p + 1 + scroll_down][q].Return_Number_Bonds_Glycan() == 1 || length_of_below_bar_left <= length_of_current_bar_left))
+			while (q - length_of_below_bar_left > 0 && (Murein[p + 1 + scroll_down][q - length_of_below_bar_left].Return_Number_Bonds_Glycan() == 1 || length_of_below_bar_left <= length_of_current_bar_left))
 			{
 
 				if (Murein[p + scroll_down][q - length_of_below_bar_left].Return_Number_Bonds_Peptide() == 1)
@@ -339,7 +339,7 @@ void Polymer::Find_Force_Leftwards(double Input_Force, int q, int p)
 		int join_right_tally = 0;
 
 
-		while (((q - length_of_current_bar_up) > 0) && ((Murein[p - scroll_left][q].Return_Number_Bonds_Peptide() == 1) || (length_of_current_bar_up <= length_of_below_bar_up)))
+		while (((q - length_of_current_bar_up) > 0) && ((Murein[p - scroll_left][q - length_of_current_bar_up].Return_Number_Bonds_Peptide() == 1) || (length_of_current_bar_up <= length_of_below_bar_up)))
 		{
 			if (Murein[p - scroll_left][q - length_of_current_bar_up].Return_Number_Bonds_Glycan() == 1)
 			{
@@ -353,7 +353,7 @@ void Polymer::Find_Force_Leftwards(double Input_Force, int q, int p)
 
 		}
 
-		while (((q + length_of_current_bar_down) < DIMENSION - 1) && (Murein[p - scroll_left][q].Return_Number_Bonds_Peptide() == 1 || length_of_current_bar_down <= length_of_below_bar_down))
+		while (((q + length_of_current_bar_down) < DIMENSION - 1) && (Murein[p - scroll_left][q + length_of_current_bar_down].Return_Number_Bonds_Peptide() == 1 || length_of_current_bar_down <= length_of_below_bar_down))
 		{
 			if (Murein[p - scroll_left][q + length_of_current_bar_down].Return_Number_Bonds_Glycan() == 1)
 			{
@@ -366,7 +366,7 @@ void Polymer::Find_Force_Leftwards(double Input_Force, int q, int p)
 
 		if (p - scroll_left != 0)
 		{
-			while (((q - length_of_above_bar_up) > 0) && (Murein[p + 1 - scroll_left][q].Return_Number_Bonds_Peptide() == 1 || length_of_above_bar_up <= length_of_current_bar_up))
+			while (((q - length_of_above_bar_up) > 0) && (Murein[p + 1 - scroll_left][q - length_of_current_bar_up].Return_Number_Bonds_Peptide() == 1 || length_of_above_bar_up <= length_of_current_bar_up))
 			{
 
 				if (Murein[p - scroll_left][q - length_of_above_bar_up].Return_Number_Bonds_Glycan() == 1)
@@ -378,7 +378,7 @@ void Polymer::Find_Force_Leftwards(double Input_Force, int q, int p)
 
 			}
 
-			while (((q + length_of_above_bar_down) < DIMENSION - 1) && (Murein[p - scroll_left][q].Return_Number_Bonds_Peptide() == 1 || length_of_above_bar_down <= length_of_current_bar_down))
+			while (((q + length_of_above_bar_down) < DIMENSION - 1) && (Murein[p - scroll_left][q + length_of_current_bar_down].Return_Number_Bonds_Peptide() == 1 || length_of_above_bar_down <= length_of_current_bar_down))
 			{
 				if (Murein[p - scroll_left][q + length_of_above_bar_down].Return_Number_Bonds_Glycan() == 1)
 				{
@@ -456,7 +456,7 @@ void Polymer::Find_Force_Rightwards(double Input_Force, int q, int p)
 
 		}
 
-		while (((q + length_of_current_bar_down) < DIMENSION - 1) && (Murein[p + scroll_right][q].Return_Number_Bonds_Peptide() == 1 || length_of_current_bar_down <= length_of_below_bar_down))
+		while (((q + length_of_current_bar_down) < DIMENSION - 1) && (Murein[p + scroll_right][q + length_of_current_bar_down].Return_Number_Bonds_Peptide() == 1 || length_of_current_bar_down <= length_of_below_bar_down))
 		{
 			if (Murein[p + scroll_right][q + length_of_current_bar_down].Return_Number_Bonds_Glycan() == 1)
 			{
@@ -469,7 +469,7 @@ void Polymer::Find_Force_Rightwards(double Input_Force, int q, int p)
 
 		if (p + scroll_right != 0)
 		{
-			while (((q - length_of_above_bar_up) > 0) && (Murein[p + 1 + scroll_right][q].Return_Number_Bonds_Peptide() == 1 || length_of_above_bar_up <= length_of_current_bar_up))
+			while (((q - length_of_above_bar_up) > 0) && (Murein[p + 1 + scroll_right][q - length_of_above_bar_up].Return_Number_Bonds_Peptide() == 1 || length_of_above_bar_up <= length_of_current_bar_up))
 			{
 
 				if (Murein[p + scroll_right][q - length_of_above_bar_up].Return_Number_Bonds_Glycan() == 1)
@@ -559,14 +559,14 @@ void Polymer::Sort_Lengths_Into_Groups_For_Histogram()
 
 	Max_Length_Peptide = 0;
 	Max_Length_Glycan = 0;
-	Min_Length_Glycan = 1000000000000000;
-	Min_Length_Peptide = 10000000000000000;
+	Min_Length_Glycan = RAND_MAX;
+	Min_Length_Peptide = RAND_MAX;
 
 	for (int i = 0; i < DIMENSION; i++)
 	{
 		for (int j = 0; j < DIMENSION; j++)
 		{
-			cout << i << "\t" << j << "\t" << Murein[i][j].Return_Length_Peptide() << "\t" << Murein[i][j].Return_Vertical_Force() << endl;
+			cout << i << "\t" << j << "\t" << Murein[i][j].Return_Length_Peptide() << "\t" << Murein[i][j].Return_Vertical_Force() << "\t" << Murein[i][j].Return_Length_Glycan() << "\t" << Murein[i][j].Return_Horizontal_Force() << endl;
 
 			if (Murein[i][j].Return_Length_Peptide() > Max_Length_Peptide)
 			{

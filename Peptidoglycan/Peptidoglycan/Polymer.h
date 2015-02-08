@@ -1,7 +1,7 @@
 #ifndef POLYMER_HEADER
 #define POLYMER_HEADER
 
-#define DIMENSION 14
+#define DIMENSION 102
 
 #include"Monomer.h"
 
@@ -11,9 +11,6 @@ private:
 	Monomer Murein[DIMENSION][DIMENSION];
 
 	void Delete_Dead_Ends_And_Unjoined();
-
-	double Numerator[DIMENSION][DIMENSION];
-	double Denominator[DIMENSION][DIMENSION];
 
 	double Force_Upwards[DIMENSION][DIMENSION];
 	double Force_Downwards[DIMENSION][DIMENSION];
