@@ -208,6 +208,12 @@ void Polymer::Find_Force_Upwards(double Input_Force, int p, int q)
 		
 
 		Input_Force = Input_Force*Numerator / Denominator;
+
+		if (Numerator == 0)
+		{
+			Input_Force == 0;
+			return;
+		}
 	}
 
 	Force_Upwards[p][q] = Input_Force;
@@ -308,6 +314,12 @@ void Polymer::Find_Force_Downwards(double Input_Force, int p, int q)
 		length_of_below_bar_right = 0;
 
 		Input_Force = Input_Force*Numerator / Denominator;
+		
+		if (Numerator == 0)
+		{
+			Input_Force == 0;
+			return;
+		}
 	}
 
 	Force_Downwards[p][q] = Input_Force;
@@ -353,7 +365,7 @@ void Polymer::Find_Force_Leftwards(double Input_Force, int q, int p)
 
 		}
 
-		while (((q + length_of_current_bar_down) < DIMENSION - 1) && (Murein[p - scroll_left][q + length_of_current_bar_down].Return_Number_Bonds_Peptide() == 1 || length_of_current_bar_down <= length_of_below_bar_down))
+		while (((q + length_of_current_bar_down) < DIMENSION - 1) && (Murein[p - scroll_left][q + length_of_current_bar_down].Return_Number_Bonds_Peptide() == 1 || length_of_current_bar_down <= length_of_below_bar_down)) //is it here???
 		{
 			if (Murein[p - scroll_left][q + length_of_current_bar_down].Return_Number_Bonds_Glycan() == 1)
 			{
@@ -411,6 +423,12 @@ void Polymer::Find_Force_Leftwards(double Input_Force, int q, int p)
 
 
 		Input_Force = Input_Force*Numerator / Denominator;
+
+		if (Numerator == 0)
+		{
+			Input_Force == 0;
+			return;
+		}
 	}
 
 	Force_Leftwards[p][q] = Input_Force;
@@ -514,6 +532,12 @@ void Polymer::Find_Force_Rightwards(double Input_Force, int q, int p)
 
 
 		Input_Force = Input_Force*Numerator / Denominator;
+
+		if (Numerator == 0)
+		{
+			Input_Force == 0;
+			return;
+		}
 	}
 
 	Force_Rightwards[p][q] = Input_Force;
