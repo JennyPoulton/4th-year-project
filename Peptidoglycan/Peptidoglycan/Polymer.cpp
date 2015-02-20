@@ -11,7 +11,7 @@ Polymer::Polymer()
 	Min_Length_Peptide = 1000000000000000;
 
 	Set_Forces_And_Lengths(10);
-	//Delete_Dead_Ends_And_Unjoined();
+	Delete_Dead_Ends_And_Unjoined();
 
 	Calculate_Spring_Constant_Horizontal();
 	Calculate_Spring_Constant_Vertical();
@@ -190,9 +190,9 @@ void Polymer::Find_Force_Upwards(double Input_Force, int p, int q)
 			join_down_tally = DIMENSION; //only true for glycans, for peptides it loops round
 		}
 		
-		join_up_tally = join_up_tally - Murein[p - scroll_up][q].Return_Number_Bonds_Peptide();
-		join_down_tally = join_down_tally - Murein[p - scroll_up][q].Return_Number_Bonds_Peptide();
-
+		////join_up_tally = join_up_tally - Murein[p - scroll_up][q].Return_Number_Bonds_Peptide();
+		//join_down_tally = join_down_tally - Murein[p - scroll_up][q].Return_Number_Bonds_Peptide();
+		
 		Numerator = Numerator*join_up_tally;
 		Denominator = Denominator*join_down_tally;
 
@@ -298,8 +298,8 @@ void Polymer::Find_Force_Downwards(double Input_Force, int p, int q)
 			join_down_tally = DIMENSION; //only true for glycans, for peptides it loops round
 		}
 
-		join_up_tally = join_up_tally - Murein[p + scroll_down][q].Return_Number_Bonds_Peptide();
-		join_down_tally = join_down_tally - Murein[p + scroll_down][q].Return_Number_Bonds_Peptide();
+		//join_up_tally = join_up_tally - Murein[p + scroll_down][q].Return_Number_Bonds_Peptide();
+		//join_down_tally = join_down_tally - Murein[p + scroll_down][q].Return_Number_Bonds_Peptide();
 
 		Numerator = Numerator*join_up_tally;
 		Denominator = Denominator*join_down_tally;
@@ -405,8 +405,8 @@ void Polymer::Find_Force_Leftwards(double Input_Force, int q, int p)
 			join_right_tally = DIMENSION; //only true for Peptides, for Glycans it loops round
 		}
 
-		join_left_tally = join_left_tally - Murein[p - scroll_left][q].Return_Number_Bonds_Glycan();
-		join_right_tally = join_right_tally - Murein[p - scroll_left][q].Return_Number_Bonds_Glycan();
+		//join_left_tally = join_left_tally - Murein[p - scroll_left][q].Return_Number_Bonds_Glycan();
+		//join_right_tally = join_right_tally - Murein[p - scroll_left][q].Return_Number_Bonds_Glycan();
 
 		Numerator = Numerator*join_left_tally;
 		Denominator = Denominator*join_right_tally;
@@ -514,8 +514,8 @@ void Polymer::Find_Force_Rightwards(double Input_Force, int q, int p)
 			join_right_tally = DIMENSION; //only true for Peptides, for Glycans it loops round
 		}
 
-		join_left_tally = join_left_tally - Murein[p + scroll_right][q].Return_Number_Bonds_Glycan();
-		join_right_tally = join_right_tally - Murein[p + scroll_right][q].Return_Number_Bonds_Glycan();
+		//join_left_tally = join_left_tally - Murein[p + scroll_right][q].Return_Number_Bonds_Glycan();
+		//join_right_tally = join_right_tally - Murein[p + scroll_right][q].Return_Number_Bonds_Glycan();
 
 		Numerator = Numerator*join_left_tally;
 		Denominator = Denominator*join_right_tally;

@@ -1,7 +1,7 @@
 #ifndef POLYMER_HEADER
 #define POLYMER_HEADER
 
-#define DIMENSION 102
+#define DIMENSION 50
 
 #include"Monomer.h"
 
