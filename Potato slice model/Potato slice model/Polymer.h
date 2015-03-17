@@ -14,6 +14,9 @@ private:
 
 	void Set_Up_Potato();
 
+	int Circumferance_at_centre;
+	int Circumferance_at_offset[DIMENSION];
+
 	double Force_Upwards[DIMENSION][DIMENSION];
 	double Force_Downwards[DIMENSION][DIMENSION];
 	double Force_Leftwards[DIMENSION][DIMENSION];
